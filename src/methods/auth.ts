@@ -1,23 +1,25 @@
 import { Elysia, t } from "elysia";
 import { PrismaClient } from "@prisma/client";
+import HttpResponse from "../traits/httpResponse";
 
 const db = new PrismaClient()
+const response = new HttpResponse()
 
 class Auth {
-    async register ({body}) {
-        await db.users.create({
-            data: body
-        }),
-        {
-            body: t.Object({ 
-                name: t.String(), 
-                email: t.String(), 
-                password: t.String({ 
-                    minLength: 8 
-                }) 
-            }) 
+    async register ({body}, schema) {
+        let checkUser = await db.users.findFirst({
+            where: {
+                email: body.email,
+            }
+        })
+        if(checkUser) {
+            return null;
         }
-        return body
+        let user = await db.users.create({
+            data: body
+        })
+       
+        return user
     }
 
     async login ({body}) {

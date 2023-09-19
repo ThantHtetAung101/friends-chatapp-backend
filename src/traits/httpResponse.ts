@@ -7,6 +7,7 @@ class HttpResponse {
         }))
         res.headers.set('Access-Control-Allow-Origin', '*');
         res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.headers.set('Access-Control-Allow-Headers', '*')
         res.headers.set('Content-Type', 'application/json')
         return res;
     }
@@ -18,6 +19,7 @@ class HttpResponse {
         }))
         res.headers.set('Access-Control-Allow-Origin', '*');
         res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.headers.set('Access-Control-Allow-Headers', '*')
         res.headers.set('Content-Type', 'application/json')
         return res;
     }

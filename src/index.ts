@@ -1,6 +1,7 @@
 import { Elysia, t } from "elysia";
 import { PrismaClient } from "@prisma/client";
 import api from './api'
+import cors from "@elysiajs/cors";
 
 const db = new PrismaClient()
 

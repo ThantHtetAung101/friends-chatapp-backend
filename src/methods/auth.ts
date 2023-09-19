@@ -49,7 +49,7 @@ class Auth {
             } else {
                 return {
                     success: false,
-                    message: 'Password is wrong!'
+                    message: 'Username & Password is wrong!'
                 }
             }
         } else {

@@ -1,9 +1,6 @@
-import { Elysia, t } from "elysia";
 import { PrismaClient } from "@prisma/client";
-import HttpResponse from "../traits/httpResponse";
 
 const db = new PrismaClient()
-const response = new HttpResponse()
 
 class Auth {
     async register ({body}, schema) {
@@ -13,13 +10,20 @@ class Auth {
             }
         })
         if(checkUser) {
-            return null;
+            return {
+                success: false,
+                message: 'This email is already registered!'
+            };
         }
         let user = await db.users.create({
             data: body
         })
        
-        return user
+        return {
+            success: true,
+            data: user,
+            message: 'Register successful'
+        }
     }
 
     async login ({body}) {
@@ -37,10 +41,22 @@ class Auth {
                         token: fullToken,
                     }
                 })
-                return personalToken
+                return {
+                    success: true,
+                    data: personalToken,
+                    message: 'Login successful'
+                }
+            } else {
+                return {
+                    success: false,
+                    message: 'Password is wrong!'
+                }
             }
         } else {
-            return null
+            return {
+                success: false,
+                message: 'User Not Found!'
+            }
         }
         
     }

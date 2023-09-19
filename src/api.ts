@@ -19,18 +19,18 @@ const register = new Elysia().post('/register', async ({ body }) => {
         }) 
     }
     let res = await auth.register({body}, schema)
-    if(res == null) {
-        return response.error(res, 'This email is already registered!')
+    if(res.success == false) {
+        return response.error(null, res.message)
     }
-    return response.success(res, 'Register successful');   
+    return response.success(res.data, res.message);   
 })
 
 const login = new Elysia().post('/login', async ({body}) => {
     let res = await auth.login({body})
-    if(res == null) {
-        return response.error(res, 'User Not Found!')
+    if(res.success == false) {
+        return response.error(null, res.message)
     }
-    return response.success(res, 'Login successful')
+    return response.success(res.data, res.message)
 })
 
 const test = new Elysia().get('/test', () => {

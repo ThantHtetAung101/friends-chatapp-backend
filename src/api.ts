@@ -19,7 +19,6 @@ const register = new Elysia().post('/register', async ({ body }) => {
         }) 
     }
     let res = await auth.register({body}, schema)
-    console.log(res);
     if(res == null) {
         return response.error(res, 'This email is already registered!')
     }
@@ -28,7 +27,9 @@ const register = new Elysia().post('/register', async ({ body }) => {
 
 const login = new Elysia().post('/login', async ({body}) => {
     let res = await auth.login({body})
-    console.log(res);
+    if(res == null) {
+        return response.error(res, 'User Not Found!')
+    }
     return response.success(res, 'Login successful')
 })
 

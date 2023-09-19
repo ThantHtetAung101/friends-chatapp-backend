@@ -40,7 +40,7 @@ class Auth {
                 return personalToken
             }
         } else {
-            return 'User Not Found!'
+            return null
         }
         
     }
